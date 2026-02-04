@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# build outputs
+/final-build/
+/build-output/
+/dist/
+/public-dist/
+/output/
+/page-scroll-demo.webm

@@ -1,6 +1,0 @@
-1:"$Sreact.fragment"
-2:I[90745,["/_next/static/chunks/5ad79e58c26ed5bb.js","/_next/static/chunks/774134996e31aae7.js","/_next/static/chunks/8d295398ded16c34.js","/_next/static/chunks/a450e80888e80cc1.js"],"ProductContent"]
-3:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
-4:"$Sreact.suspense"
-0:{"buildId":"Zbh2qRY0pXS92ZgfuIV1V","rsc":["$","$1","c",{"children":[["$","$L2",null,{"slug":["electronics","laptops"]}],[["$","script","script-0",{"src":"/_next/static/chunks/a450e80888e80cc1.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
-5:null

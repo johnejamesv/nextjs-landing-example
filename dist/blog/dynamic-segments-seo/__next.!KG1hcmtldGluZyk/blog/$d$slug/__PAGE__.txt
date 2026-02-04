@@ -1,6 +1,0 @@
-1:"$Sreact.fragment"
-2:I[36963,["/_next/static/chunks/52f6b6d9778f6e7a.js","/_next/static/chunks/45675daf2fc975fd.js","/_next/static/chunks/de77b38840d757ef.js","/_next/static/chunks/06c55323538a21c9.js","/_next/static/chunks/8d295398ded16c34.js","/_next/static/chunks/7ac7f689e63ef997.js"],"BlogPostContent"]
-3:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
-4:"$Sreact.suspense"
-0:{"buildId":"6v-y2nQNnIq7U6pnZf6q2","rsc":["$","$1","c",{"children":[["$","$L2",null,{"slug":"dynamic-segments-seo"}],[["$","script","script-0",{"src":"/_next/static/chunks/7ac7f689e63ef997.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
-5:null
