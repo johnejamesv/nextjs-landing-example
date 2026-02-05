@@ -9,17 +9,25 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 
+        default:
           "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-primary/30",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 shadow-lg shadow-destructive/20",
         outline:
-          "border border-white/10 bg-white/5 hover:bg-white/10 hover:text-foreground",
+          "border border-white/15 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-cyan-500/30 hover:shadow-lg hover:shadow-cyan-500/10",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost:
-          "hover:bg-white/5 hover:text-foreground",
+          "hover:bg-white/8 hover:text-foreground transition-all duration-200",
         link: "text-primary underline-offset-4 hover:underline",
+        gradient:
+          "bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 text-white hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300 bg-[length:200%_200%]",
+        "gradient-cyan":
+          "bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:shadow-lg hover:shadow-cyan-500/25",
+        "gradient-purple":
+          "bg-gradient-to-r from-purple-500 to-pink-600 text-white hover:shadow-lg hover:shadow-purple-500/25",
+        glass:
+          "glass hover:bg-white/10 hover:border-cyan-500/30 hover:shadow-lg hover:shadow-cyan-500/10",
       },
       size: {
         default: "h-10 px-5 py-2 has-[>svg]:px-4",

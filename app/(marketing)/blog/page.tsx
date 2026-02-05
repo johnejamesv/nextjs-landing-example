@@ -1,5 +1,21 @@
 "use client";
 
+/**
+ * Blog Listing Page with Intercepting Routes Demo
+ * 
+ * This page demonstrates Strategy 4 (Intelligent Prefetching) and 
+ * works with the Parallel Route + Intercepting Route (@modal/(.)blog/[slug])
+ * to show blog posts in a modal overlay while preserving the list context.
+ * 
+ * How the modal interception works:
+ * 1. User is on /blog (this page)
+ * 2. User clicks a blog post link to /blog/[slug]
+ * 3. The intercepting route @modal/(.)blog/[slug] catches the navigation
+ * 4. Modal renders OVER this page, URL updates to /blog/[slug]
+ * 5. User can close modal to return to this list (scroll position preserved)
+ * 6. Direct navigation to /blog/[slug] or refresh shows full page (not modal)
+ */
+
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,7 +29,9 @@ import {
   Target,
   ArrowUpRight,
   Sparkles,
-  Cpu
+  Cpu,
+  ExternalLink,
+  Layers
 } from "lucide-react";
 import Link from "next/link";
 
@@ -98,10 +116,14 @@ export default function BlogPage() {
               </Link>
             </Button>
             
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3 mb-4 flex-wrap">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass">
                 <Zap className="h-3.5 w-3.5 text-purple-400" />
                 <span className="text-xs font-medium">Strategy 4</span>
+              </div>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border-amber-500/20">
+                <Layers className="h-3.5 w-3.5 text-amber-400" />
+                <span className="text-xs font-medium">Intercepting Routes Demo</span>
               </div>
             </div>
             
@@ -109,11 +131,20 @@ export default function BlogPage() {
               Intelligent <span className="gradient-text">Prefetching</span>
             </h1>
             
-            <p className="text-xl text-muted-foreground max-w-3xl leading-relaxed">
-              This blog listing demonstrates Strategy 4. Hover over any article card 
-              to see the prefetch indicator. Next.js automatically prefetches linked 
-              pages on viewport entry.
+            <p className="text-xl text-muted-foreground max-w-3xl leading-relaxed mb-6">
+              This blog listing demonstrates Strategy 4. Click any article to see 
+              <strong> Intercepting Routes</strong> in action - a modal opens over this list while 
+              the URL updates for sharing. Close the modal to return exactly where you were.
             </p>
+
+            <div className="flex flex-wrap gap-4">
+              <Button variant="outline" size="sm" asChild>
+                <Link href="https://nextjs.org/docs/app/building-your-application/routing/intercepting-routes" target="_blank">
+                  <ExternalLink className="mr-2 h-4 w-4" />
+                  Intercepting Routes Docs
+                </Link>
+              </Button>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -263,98 +294,141 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* Prefetch Explanation Section */}
+      {/* Technical Explanation Sections */}
       <section className="py-16 relative overflow-hidden">
-        {/* Background decoration */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-0 left-1/4 w-[300px] h-[300px] bg-purple-600/5 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-[300px] h-[300px] bg-indigo-600/5 rounded-full blur-3xl" />
         </div>
         
         <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <Card className="overflow-hidden border-2 border-white/8">
-              <div className="h-1 w-full bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500" />
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
-                    <Zap className="h-5 w-5 text-purple-400" />
+          <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Prefetching Explanation */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <Card className="overflow-hidden border-2 border-white/8 h-full">
+                <div className="h-1 w-full bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500" />
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                      <Zap className="h-5 w-5 text-purple-400" />
+                    </div>
+                    <div>
+                      <CardTitle>Prefetching Strategy</CardTitle>
+                      <CardDescription>Automatic viewport-based loading</CardDescription>
+                    </div>
                   </div>
-                  <div>
-                    <CardTitle>How Prefetching Works Here</CardTitle>
-                    <CardDescription>Technical implementation details</CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <h4 className="font-semibold flex items-center gap-2">
-                      <div className="h-1 w-4 rounded-full bg-purple-500" />
-                      Automatic Prefetching
-                    </h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      Next.js Link components automatically prefetch linked pages when they 
-                      enter the viewport. This means blog posts are loaded before the user clicks.
-                    </p>
-                    <pre className="text-xs rounded-xl">
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Next.js <code className="text-xs bg-muted px-1 rounded">Link</code> components 
+                    automatically prefetch linked pages when they enter the viewport. This means 
+                    blog posts are loaded before the user clicks.
+                  </p>
+                  <pre className="text-xs rounded-xl">
 {`<Link 
   href={\`/blog/\${post.slug}\`}
   // prefetch={true} // default behavior
 >
   Read Article
 </Link>`}
-                    </pre>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <h4 className="font-semibold flex items-center gap-2">
-                      <div className="h-1 w-4 rounded-full bg-indigo-500" />
-                      Programmatic Prefetch
-                    </h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      For custom interactions, use the router prefetch method on hover 
-                      or when the user shows intent to navigate.
-                    </p>
-                    <pre className="text-xs rounded-xl">
-{`const router = useRouter();
+                  </pre>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-// Prefetch on hover intent
-<Card
-  onMouseEnter={() => 
-    router.prefetch(\`/blog/\${slug}\`)
-  }
->
-  {/* Content */}
-</Card>`}
-                    </pre>
+            {/* Intercepting Routes Explanation */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <Card className="overflow-hidden border-2 border-white/8 h-full">
+                <div className="h-1 w-full bg-gradient-to-r from-amber-500 via-orange-500 to-red-500" />
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                      <Target className="h-5 w-5 text-amber-400" />
+                    </div>
+                    <div>
+                      <CardTitle>Intercepting Routes</CardTitle>
+                      <CardDescription>Modal overlays with URL updates</CardDescription>
+                    </div>
                   </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    The <code className="text-xs bg-muted px-1 rounded">(.)</code> convention 
+                    intercepts navigations and renders a modal instead of a full page transition. 
+                    This preserves context while enabling deep linking.
+                  </p>
+                  <pre className="text-xs rounded-xl">
+{`// File structure:
+app/
+├── blog/[slug]/page.tsx       # Full page
+└── @modal/(.)blog/[slug]/     # Intercepting
+    └── page.tsx               # Modal
+
+// Result:
+// From /blog → click → modal opens
+// URL: /blog/[slug] (shareable!)`}
+                  </pre>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+
+          <div className="section-divider my-12 max-w-5xl mx-auto" />
+
+          {/* Configuration Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <Card className="overflow-hidden border-2 border-white/8 max-w-5xl mx-auto">
+              <div className="h-1 w-full bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500" />
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-lg bg-cyan-500/10 flex items-center justify-center">
+                    <Cpu className="h-5 w-5 text-cyan-400" />
+                  </div>
+                  <CardTitle>Next.js 16 Configuration</CardTitle>
                 </div>
-
-                <div className="section-divider" />
-
-                <div className="space-y-4">
-                  <h4 className="font-semibold flex items-center gap-2">
-                    <Cpu className="h-4 w-4 text-primary" />
-                    Prefetch Configuration Strategies
-                  </h4>
-                  <div className="grid md:grid-cols-4 gap-4">
-                    {[
-                      { label: "viewport", desc: "Prefetch when link enters viewport (default)" },
-                      { label: "hover", desc: "Prefetch on mouse enter" },
-                      { label: "false", desc: "Disable automatic prefetching" },
-                      { label: "intent", desc: "Hybrid: viewport + hover priority" }
-                    ].map((item) => (
-                      <div key={item.label} className="p-4 rounded-xl bg-white/5 border border-white/5 space-y-2">
-                        <code className="text-xs font-mono px-2 py-1 rounded bg-primary/10 text-primary">{item.label}</code>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-3 gap-6">
+                  {[
+                    { 
+                      label: "PPR", 
+                      desc: "Partial Prerendering - static shell with dynamic streaming",
+                      code: "experimental.ppr: true"
+                    },
+                    { 
+                      label: "View Transitions", 
+                      desc: "Native browser View Transitions API support",
+                      code: "experimental.viewTransition: true"
+                    },
+                    { 
+                      label: "Turbopack", 
+                      desc: "Fast builds with persistent caching",
+                      code: "experimental.turbo: {...}"
+                    }
+                  ].map((item) => (
+                    <div key={item.label} className="p-4 rounded-xl bg-white/5 border border-white/5 space-y-3">
+                      <code className="text-xs font-mono px-2 py-1 rounded bg-primary/10 text-primary block">
+                        {item.code}
+                      </code>
+                      <div>
+                        <h4 className="font-semibold text-sm mb-1">{item.label}</h4>
                         <p className="text-xs text-muted-foreground">{item.desc}</p>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>

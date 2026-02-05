@@ -12,6 +12,20 @@ interface NavigationContextType {
 
 const NavigationContext = createContext<NavigationContextType | undefined>(undefined);
 
+/**
+ * Navigation Provider
+ * 
+ * Provides programmatic navigation with:
+ * - Navigation state tracking
+ * - History management  
+ * - Prefetching utilities
+ * 
+ * Note: Removed artificial delays - Next.js handles transitions natively.
+ * Use this for complex navigation patterns beyond simple <Link> usage.
+ * 
+ * @deprecated For simple navigation, prefer Next.js <Link> component
+ * which provides automatic prefetching and smooth transitions.
+ */
 export function NavigationProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -26,16 +40,23 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
     // Add to history before navigation
     setNavigationHistory(prev => [...prev.slice(-9), href]);
     
-    // Small delay for transition effect
-    setTimeout(() => {
-      router.push(href);
+    // Use Next.js native navigation - no artificial delays
+    // The router handles scroll restoration and transition optimization
+    router.push(href);
+    
+    // Reset navigating state after transition starts
+    // Note: Actual navigation is async, this just signals intent
+    requestAnimationFrame(() => {
       setIsNavigating(false);
-    }, 150);
+    });
   }, [router, pathname]);
 
   const prefetch = useCallback((href: string) => {
-    router.prefetch(href);
-  }, [router]);
+    // Only prefetch if not already on that page
+    if (href !== pathname) {
+      router.prefetch(href);
+    }
+  }, [router, pathname]);
 
   return (
     <NavigationContext.Provider 

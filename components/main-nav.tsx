@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { NavLink } from "@/components/nav-link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Github, Twitter, Linkedin, Compass } from "lucide-react";
@@ -25,7 +26,7 @@ export function MainNav() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 flex h-16 items-center justify-between">
         {/* Logo */}
         <Link href="/" className="mr-8 flex items-center gap-2.5 group">
-          <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/30 group-hover:scale-105 transition-all duration-300">
+          <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/30 group-hover:scale-105 transition-all duration-300">
             <Compass className="text-white h-5 w-5" />
           </div>
           <span className="font-bold text-lg hidden sm:inline-block bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
@@ -36,25 +37,19 @@ export function MainNav() {
         {/* Desktop Navigation - Centered */}
         <nav className="hidden md:flex items-center justify-center gap-1 absolute left-1/2 -translate-x-1/2">
           {navItems.map((item) => (
-            <Link
+            <NavLink
               key={item.href}
               href={item.href}
+              isActive={pathname === item.href}
               className={cn(
-                "relative px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200",
+                "px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200",
                 pathname === item.href
                   ? "text-primary"
                   : "text-muted-foreground hover:text-foreground hover:bg-white/5"
               )}
             >
               {item.label}
-              {pathname === item.href && (
-                <motion.div
-                  layoutId="activeNav"
-                  className="absolute inset-0 bg-primary/10 rounded-xl -z-10 border border-primary/20"
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                />
-              )}
-            </Link>
+            </NavLink>
           ))}
         </nav>
 

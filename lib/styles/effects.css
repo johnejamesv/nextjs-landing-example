@@ -1,0 +1,175 @@
+/**
+ * Visual Effects
+ *
+ * Glow effects, gradient text, and other visual enhancements.
+ */
+
+/* === Glow Effects === */
+.glow {
+  box-shadow: 0 0 60px -12px rgba(6, 182, 212, 0.5);
+}
+
+.glow-strong {
+  box-shadow: 0 0 80px -20px rgba(139, 92, 246, 0.5);
+}
+
+.glow-vibrant {
+  box-shadow:
+    0 0 60px -15px rgba(6, 182, 212, 0.4),
+    0 0 100px -30px rgba(139, 92, 246, 0.2),
+    0 0 140px -45px rgba(236, 72, 153, 0.1);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 60px -12px rgba(6, 182, 212, 0.5);
+}
+
+.glow-purple {
+  box-shadow: 0 0 60px -12px rgba(139, 92, 246, 0.5);
+}
+
+.glow-magenta {
+  box-shadow:
+    0 0 80px -20px rgba(236, 72, 153, 0.5),
+    0 0 120px -40px rgba(217, 70, 239, 0.3),
+    0 0 160px -60px rgba(139, 92, 246, 0.2);
+}
+
+.glow-pink {
+  box-shadow: 0 0 60px -12px rgba(244, 63, 94, 0.5);
+}
+
+.glow-mix {
+  box-shadow:
+    0 0 80px -15px rgba(139, 92, 246, 0.3),
+    0 0 40px -10px rgba(6, 182, 212, 0.2);
+}
+
+.glow-subtle {
+  box-shadow: 0 0 30px -8px rgba(139, 92, 246, 0.3);
+}
+
+/* === Text Glow === */
+.glow-text {
+  text-shadow: 0 0 40px rgba(139, 92, 246, 0.6), 0 0 80px rgba(6, 182, 212, 0.4);
+}
+
+.glow-text-strong {
+  text-shadow:
+    0 0 50px rgba(139, 92, 246, 0.6),
+    0 0 100px rgba(6, 182, 212, 0.3);
+}
+
+.text-glow {
+  text-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+}
+
+.text-glow-strong {
+  text-shadow: 0 0 50px rgba(139, 92, 246, 0.6), 0 0 100px rgba(6, 182, 212, 0.3);
+}
+
+/* === Animated Glow === */
+.glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 60px -12px rgba(6, 182, 212, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 80px -15px rgba(139, 92, 246, 0.6);
+  }
+}
+
+/* === Gradient Text === */
+.gradient-text {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
+}
+
+.gradient-text-hero {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 20%, #d946ef 40%, #f43f5e 60%, #f97316 80%, #eab308 100%);
+  background-size: 300% 300%;
+  animation: aurora-flow 12s ease infinite;
+}
+
+.gradient-text-vibrant {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 50%, #d946ef 100%);
+  background-size: 200% 200%;
+  animation: gradient-shift 6s ease infinite;
+}
+
+.gradient-text-cyan {
+  @apply bg-clip-text text-transparent;
+  background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+}
+
+.gradient-text-purple {
+  @apply bg-clip-text text-transparent;
+  background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%);
+}
+
+.gradient-text-pink {
+  @apply bg-clip-text text-transparent;
+  background: linear-gradient(135deg, #ec4899 0%, #f97316 100%);
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes aurora-flow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* === Border Glow Animation === */
+@keyframes border-glow {
+  0%, 100% {
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 0 20px -5px rgba(139, 92, 246, 0.2);
+  }
+  50% {
+    border-color: rgba(6, 182, 212, 0.4);
+    box-shadow: 0 0 30px -5px rgba(6, 182, 212, 0.3);
+  }
+}
+
+.animate-border-glow {
+  animation: border-glow 4s ease-in-out infinite;
+}
+
+/* === Typography Enhancements === */
+.tracking-tight-hero {
+  letter-spacing: -0.03em;
+}
+
+.text-display {
+  @apply text-6xl sm:text-7xl lg:text-8xl font-bold tracking-tight;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.text-headline {
+  @apply text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.text-subheadline {
+  @apply text-2xl sm:text-3xl font-semibold;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}

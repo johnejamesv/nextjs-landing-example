@@ -12,10 +12,14 @@ import {
   FileCode,
   Layout,
   Target,
-  ArrowUpRight
+  ArrowUpRight,
+  Zap,
+  ExternalLink,
+  Sparkles
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { NewsletterSignup } from "@/components/newsletter-signup";
 
 const pageVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -69,6 +73,10 @@ export default function AboutPage() {
                 <Layers className="h-3.5 w-3.5 text-blue-400" />
                 <span className="text-xs font-medium">Strategy 1 & 3</span>
               </div>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border-purple-500/20">
+                <Sparkles className="h-3.5 w-3.5 text-purple-400" />
+                <span className="text-xs font-medium">Now with Intercepting Routes</span>
+              </div>
             </div>
             
             <h1 className="text-5xl font-bold tracking-tight sm:text-6xl mb-4">
@@ -77,8 +85,9 @@ export default function AboutPage() {
             </h1>
             
             <p className="text-xl text-muted-foreground max-w-3xl leading-relaxed">
-              This page demonstrates Strategy 1 (Route Groups) and Strategy 3 (Parallel Routes). 
-              Notice how the URL stays clean while the file structure is organized by feature.
+              This page demonstrates Strategy 1 (Route Groups), Strategy 3 (Parallel Routes), 
+              and now <strong>Intercepting Routes</strong>. Navigate to blog posts to see modals 
+              that preserve context while updating the URL.
             </p>
           </motion.div>
         </div>
@@ -160,7 +169,7 @@ export default function AboutPage() {
               </Card>
             </motion.div>
 
-            {/* Parallel Routes Explanation */}
+            {/* Parallel Routes + Intercepting Routes Explanation */}
             <motion.div variants={itemVariants}>
               <Card className="h-full overflow-hidden border-2 border-white/8 hover:border-amber-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-amber-500/5">
                 <div className="h-1 w-full bg-gradient-to-r from-amber-500 via-orange-500 to-red-500" />
@@ -169,57 +178,56 @@ export default function AboutPage() {
                     <div className="h-12 w-12 rounded-xl bg-amber-500/10 flex items-center justify-center">
                       <GitBranch className="h-6 w-6 text-amber-400" />
                     </div>
-                    <CardTitle className="text-2xl">Parallel Routes</CardTitle>
+                    <div>
+                      <CardTitle className="text-2xl">Parallel + Intercepting</CardTitle>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Combined for modal overlays
+                      </p>
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <p className="text-muted-foreground leading-relaxed">
-                    Parallel routes (using the @folder convention) let you render multiple pages 
-                    simultaneously in the same layout. Each slot can have its own loading state, 
-                    error boundary, and navigation.
+                    Parallel routes (<code className="text-xs bg-muted px-1 rounded">@folder</code>) + 
+                    Intercepting routes (<code className="text-xs bg-muted px-1 rounded">(.)</code>) enable 
+                    modals that preserve context. Click a blog post from /blog to see it in action.
                   </p>
                   
                   <div className="space-y-3">
                     <h4 className="font-semibold text-sm flex items-center gap-2">
                       <div className="h-1 w-4 rounded-full bg-amber-500" />
-                      Example Implementation
+                      How It Works
                     </h4>
                     <pre className="text-xs rounded-xl">
 {`app/
-├── layout.tsx            # Renders children + slots
-├── page.tsx              # Main content
-├── @team/               # Parallel route slot
-│   └── page.tsx         # Team section
-└── @analytics/          # Parallel route slot
-    └── page.tsx         # Analytics section
+├── layout.tsx              # Renders children + @modal
+├── page.tsx                # Home page
+├── blog/
+│   └── [slug]/
+│       └── page.tsx        # Full blog post page
+└── @modal/                 # Parallel route slot
+    └── (.)blog/[slug]/     # Intercepting route
+        └── page.tsx        # Modal version
 
-// layout.tsx
-export default function Layout({
-  children,
-  team,
-  analytics,
-}) {
-  return (
-    <div>
-      <aside>{team}</aside>
-      <main>{children}</main>
-      <aside>{analytics}</aside>
-    </div>
-  )
-}`}
+// When on /blog:
+// - Click → /blog/post-1
+// - Shows modal OVER the blog list
+// - URL updates to /blog/post-1
+// - Refresh → shows full page`}
                     </pre>
                   </div>
 
                   <div className="space-y-3">
                     <h4 className="font-semibold text-sm flex items-center gap-2">
                       <div className="h-1 w-4 rounded-full bg-amber-500" />
-                      Use Cases
+                      Key Benefits
                     </h4>
                     <ul className="space-y-3 text-sm text-muted-foreground">
                       {[
-                        "Dashboards with multiple independent panels",
-                        "Split-pane layouts (inbox + details)",
-                        "Modal overlays that preserve context"
+                        "Preserve scroll position and context",
+                        "URL updates enable sharing/bookmarking",
+                        "Progressive enhancement (works without JS)",
+                        "Instant modal appearance with server fetch"
                       ].map((item, i) => (
                         <li key={i} className="flex items-start gap-3">
                           <span className="h-5 w-5 rounded-md bg-amber-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -230,8 +238,30 @@ export default function Layout({
                       ))}
                     </ul>
                   </div>
+
+                  <Button asChild variant="outline" className="w-full group">
+                    <Link href="/blog">
+                      <Zap className="mr-2 h-4 w-4 text-amber-400" />
+                      Try It: Go to Blog
+                      <ArrowUpRight className="ml-2 h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </Link>
+                  </Button>
                 </CardContent>
               </Card>
+            </motion.div>
+          </motion.div>
+
+          <div className="section-divider my-16" />
+
+          {/* Server Actions Demo */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <motion.div variants={itemVariants} className="max-w-3xl mx-auto">
+              <NewsletterSignup />
             </motion.div>
           </motion.div>
 
@@ -296,6 +326,21 @@ export default function AboutPage() {
   );
 }`}
                     </pre>
+                  </div>
+
+                  <div className="mt-6 flex flex-wrap gap-4">
+                    <Button asChild variant="outline" className="gap-2">
+                      <Link href="https://nextjs.org/docs/app/building-your-application/routing/route-groups" target="_blank">
+                        <ExternalLink className="h-4 w-4" />
+                        Route Groups Docs
+                      </Link>
+                    </Button>
+                    <Button asChild variant="outline" className="gap-2">
+                      <Link href="https://nextjs.org/docs/app/building-your-application/routing/parallel-routes" target="_blank">
+                        <ExternalLink className="h-4 w-4" />
+                        Parallel Routes Docs
+                      </Link>
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
