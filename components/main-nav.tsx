@@ -61,10 +61,10 @@ export function MainNav() {
         {/* Social Links - Desktop */}
         <div className="hidden md:flex items-center gap-1">
           <Button variant="ghost" size="icon" asChild className="h-9 w-9 rounded-xl hover:bg-white/5">
-            <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/johnejamesv/nextjs-landing-example" target="_blank" rel="noopener noreferrer">
               <Github className="h-4 w-4" />
               <span className="sr-only">GitHub</span>
-            </Link>
+            </a>
           </Button>
           <Button variant="ghost" size="icon" asChild className="h-9 w-9 rounded-xl hover:bg-white/5">
             <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer">
@@ -108,7 +108,7 @@ export function MainNav() {
             </nav>
             <div className="flex items-center gap-2 mt-8 pt-8 border-t border-white/5">
               <Button variant="ghost" size="icon" asChild className="h-10 w-10 rounded-xl hover:bg-white/5">
-                <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+                <Link href="https://github.com/johnejamesv/nextjs-landing-example" target="_blank" rel="noopener noreferrer">
                   <Github className="h-5 w-5" />
                 </Link>
               </Button>

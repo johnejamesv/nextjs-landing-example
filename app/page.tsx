@@ -243,10 +243,10 @@ export default function Home() {
                 </Link>
               </Button>
               <Button variant="outline" size="lg" asChild className="btn-lift gap-2 rounded-xl glass">
-                <Link href="https://github.com" target="_blank">
+                <a href="https://github.com/johnejamesv/nextjs-landing-example" target="_blank" rel="noopener noreferrer">
                   View on GitHub
                   <ExternalLink className="h-4 w-4" />
-                </Link>
+                </a>
               </Button>
             </div>
           </motion.div>
