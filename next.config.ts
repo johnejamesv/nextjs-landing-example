@@ -14,7 +14,7 @@ import type { NextConfig } from "next";
  */
 const nextConfig: NextConfig = {
   // output: "export",  // Disabled to support Intercepting Routes & Middleware
-  distDir: "final-build",
+  // distDir: "final-build",  // Using default .next for Vercel compatibility
   images: {
     unoptimized: false, // Now enabled with SSR
   },
