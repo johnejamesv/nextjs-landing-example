@@ -35,6 +35,5 @@ export default async function Home() {
 
       <Footer />
     </>
->>>>>>> b06885d (Refactor landing page: add intercepting routes, parallel routes, Server Actions, and Next.js 16 features)
   );
 }
