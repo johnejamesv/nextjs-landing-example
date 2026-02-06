@@ -92,7 +92,7 @@ export function HeroSection() {
                                     </Link>
                                 </Button>
                                 <Button variant="glass" size="lg" asChild className="btn-lift gap-2 rounded-xl">
-                                    <Link href="https://github.com" target="_blank">
+                                    <Link href="https://github.com/johnejamesv/nextjs-landing-example" target="_blank">
                                         View on GitHub
                                         <ExternalLink className="h-4 w-4" />
                                     </Link>
